@@ -9,7 +9,7 @@ import topIcon from '../assets/listing/top-filter-icon.svg';
 import closeIcon from '../assets/global/close-icon.svg';
 
 
-export default function Listings(props) {
+const  Listings =(props)  =>{
   const [title, setTitle] = useState('');
   const [showSort, setShowSort] = useState('');
   const [showFilters, setShowFilters] = useState(false);
@@ -91,3 +91,5 @@ export default function Listings(props) {
     </div>
   );
 }
+
+export default Listings

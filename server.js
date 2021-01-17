@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 const usersRouter = require("./app_server/routes/users");
+const CORS = require('cors')
 const app = express();
 
 // Bodyparser middleware
@@ -12,6 +13,7 @@ app.use(
   })
 );
 app.use(bodyParser.json());
+app.use(CORS({ origin: true }))
 
 // DB Config
 const db = require("./app_server/config/keys").mongoURI;

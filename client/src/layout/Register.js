@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function Register(props) {
+const Register = (props) => {
   const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -75,3 +75,4 @@ export default function Register(props) {
     </form>
   );
 }
+export default Register

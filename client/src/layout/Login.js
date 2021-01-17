@@ -1,9 +1,13 @@
 import React, { useState } from "react";
-import axios from 'axios';
-
-export default function Login() {
+import {axiosWithAuth} from '../utils/axiosWithAuth'
+import { useHistory } from "react-router-dom";
+import {useDispatch} from 'react-redux';
+import { setCurrentUser } from '../state/actions/index';
+const Login= ()  => {
+  let history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -11,9 +15,12 @@ export default function Login() {
       email: email,
       password: password
     };
-    axios.post('/users/login', userData)
+    axiosWithAuth()
+    .post('http://localhost:5000/users/login', userData)
       .then(res => {
-        console.log(res.data.token);
+        window.localStorage.setItem("token", res.data.token);
+        dispatch(setCurrentUser());
+        history.push("/");
       })
   }
 
@@ -39,3 +46,4 @@ export default function Login() {
     </form>
   );
 }
+export default Login

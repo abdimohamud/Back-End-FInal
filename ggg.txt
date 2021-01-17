@@ -1,0 +1,11 @@
+user 
+id
+fullname 
+country 
+joinDate
+
+
+Songs 
+id 
+ownerID
+costs

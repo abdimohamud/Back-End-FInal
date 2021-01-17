@@ -14,8 +14,10 @@ import free from '../assets/home/free.png';
 import star from '../assets/home/star-icon.svg';
 import { Listing } from '../components';
 import coverArt from '../assets/listing/coverart-1.png';
-
-export default function Home() {
+import { setCurrentUser } from '../state/actions/index';
+import { useDispatch, useSelector } from 'react-redux';
+import Loading from './Loading'
+const  Home = () => {
   const [tabs, setTabs] = useState(['active', 'inactive', 'inactive']);
 
   function setActive(index){
@@ -28,6 +30,24 @@ export default function Home() {
     if(tabs[0] === "active") return displayHomeTables("TOP RATED", "NEW UPLOADS");
     else if(tabs[1] === "active") return displayHomeTables("TOP PRODUCERS", "NEW PRODUCERS");
     else return displayGenres();
+  }
+  const dispatch = useDispatch();
+  const LOGGED_IN = useSelector(state => state.LOGGED_IN);
+  const LOADING = useSelector(state => state.LOADING);
+  // eslint-disable-next-line
+
+  useEffect(() => {
+    if (!LOGGED_IN) {
+      dispatch(setCurrentUser());
+    }
+  }, []);
+
+  if (LOADING) {
+    return (
+      <div className="guest-table-container">
+        <Loading />
+      </div>
+    );
   }
 
   function displayHomeTables(title1, title2){
@@ -149,3 +169,4 @@ export default function Home() {
     </div>
   );
 }
+export default Home;
