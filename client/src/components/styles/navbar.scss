@@ -1,0 +1,64 @@
+a {
+    text-decoration: inherit;
+    color: inherit;
+    cursor: pointer;
+}
+
+#navbar {
+  color: white;
+  background-color: #3E3E3E;
+  font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .logo {
+    height: 2rem;
+    margin: 0 2rem;
+    cursor: pointer;
+  }
+
+  .navbar-options {
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+
+      li {
+        margin: 1.2rem 2rem;
+        display: inline-block;
+        position: relative;
+        cursor: pointer;
+
+        span {
+          padding: 0.5rem 1rem;
+          background-color: #DB5151;
+          border-radius: 0.3rem;
+        }
+
+        .cart-amount {
+          position: absolute;
+          right: -0.5rem;
+          top: -0.5rem;
+          width: 1.2rem;
+          height: 1.2rem;
+          line-height: 1.2rem;
+          text-align: center;
+          font-size: 0.6rem;
+          background-color: #FF2B00;
+          border-radius: 50%;
+        }
+      }
+
+      .icon-container {
+        width: 2rem;
+        margin: 0 2rem;
+        vertical-align: middle;
+
+        img {
+          width: 2rem;
+        }
+      }
+    }
+  }
+}

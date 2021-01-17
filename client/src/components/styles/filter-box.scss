@@ -1,0 +1,62 @@
+.filter-box-container {
+  @media (max-width: 992px) {
+    display: none;
+  }
+
+  .reset {
+    display: inline-block;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  .menu-container {
+    background-color: rgba(196, 196, 196, 0.2);
+    padding: 1rem;
+
+    .reset {
+      margin-bottom: 0;
+    }
+
+    img {
+      cursor: pointer;
+    }
+
+    .genre-option {
+      width: 100%;
+      padding-left: 0.5rem;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #C4C4C4;
+      }
+    }
+
+    .apply-button {
+      width: 80%;
+      max-width: 120px;
+      margin: 0 auto;
+      margin-bottom: 1rem;
+      padding: 0.3rem 0;
+      text-align: center;
+      color: white;
+      background-color: #DB5151;
+      border-radius: 3px;
+      box-shadow: 7px 7px 4px rgba(0, 0, 0, 0.25);
+      cursor: pointer;
+    }
+
+    .slider-values {
+      font-size: 14px;
+      color: #898A8D;
+    }
+
+    .slider-container{
+      margin: 1rem 0;
+
+      .rc-slider-handle {
+        border: none !important;
+        box-shadow: none !important;
+      }
+    }
+  }
+}
