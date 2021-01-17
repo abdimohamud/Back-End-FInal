@@ -10,7 +10,6 @@ import Login from './layout/Login'
 const Routes = () => {
   return (
     <Switch>
-
       <PrivateRoute path="/listings/:category" ><Listings/></PrivateRoute>
       <Route  path="/login"  ><Login/></Route>
       <Route  path="/sign-up" ><Register/></Route>

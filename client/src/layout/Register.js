@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import {useHistory} from 'react-router-dom'
+import {axiosWithAuth} from '../utils/axiosWithAuth'
 
 const Register = (props) => {
+  let history = useHistory();
   const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,6 +20,12 @@ const Register = (props) => {
       accountType: accountType
     };
     console.log(userData);
+    axiosWithAuth()
+    .post('http://localhost:5000/users/register', userData)
+      .then(res => {
+        console.log(res)
+        history.push("/login");
+      })
   }
 
   return (

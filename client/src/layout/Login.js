@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import {axiosWithAuth} from '../utils/axiosWithAuth'
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import {useDispatch} from 'react-redux';
 import { setCurrentUser } from '../state/actions/index';
 const Login= ()  => {
@@ -43,6 +43,7 @@ const Login= ()  => {
         />
       </div>
       <input type="submit" value="Submit" />
+      <p>Dont have an account?<Link to="/sign-up"> Sign Up!</Link></p>
     </form>
   );
 }
