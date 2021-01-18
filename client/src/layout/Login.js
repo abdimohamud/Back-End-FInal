@@ -3,11 +3,18 @@ import {axiosWithAuth} from '../utils/axiosWithAuth'
 import { useHistory, Link } from "react-router-dom";
 import {useDispatch} from 'react-redux';
 import { setCurrentUser } from '../state/actions/index';
+import { GoogleLoginButton } from "../components/GoogleLoginButton";
 const Login= ()  => {
   let history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
+  const styles ={
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    maxWidth: '300px',
+  }
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -25,7 +32,7 @@ const Login= ()  => {
   }
 
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmit} style={styles}>
       <div>
         <label>Email:</label>
         <input
@@ -43,6 +50,7 @@ const Login= ()  => {
         />
       </div>
       <input type="submit" value="Submit" />
+      <GoogleLoginButton/>
       <p>Dont have an account?<Link to="/sign-up"> Sign Up!</Link></p>
     </form>
   );
