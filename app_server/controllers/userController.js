@@ -1,13 +1,17 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("../config/keys.js");
+const azure = require('azure-storage');
+const fs = require('fs');
 
 // Load input validation
 const validateRegisterInput = require("./validation/register");
 const validateLoginInput = require("./validation/login");
 
-// Load User model
+// Load models
 const User = require("../models/User");
+const Song = require("../models/Song");
+const Site = require("../models/Site");
 
 exports.register = function(req, res) {
   // Form validation
@@ -91,5 +95,33 @@ exports.login = function(req, res) {
         .json({ passwordincorrect: "Password incorrect" });
       }
     });
+  });
+};
+
+exports.uploadSong = function(req, res) {
+  var blobName = req.body.name.replace(/[^a-zA-Z0-9]/g, '') + Date.now();
+  var blobService = azure.createBlobService(keys.azureName, keys.azureKey);
+  blobService.createBlockBlobFromLocalFile('songs', blobName, req.file.path, function(error, result, response) {
+    if (!error) {
+      User.findOne({ id: req.body.id }).then(user => {
+        Site.findOne({ id: '1' }).then(site => {
+          var songCount = Number(site.songCount) + 1;
+          site.songCount = songCount.toString();
+          const newSong = new Song({
+            id: songCount,
+            name: req.body.name,
+            url: 'https://fyrestorage.blob.core.windows.net/songs/' + blobName,
+            ownerID: req.body.id,
+            producerName: user.producerName
+          });
+          newSong.save();
+          site.save();
+          fs.unlinkSync(req.file.path);
+        });
+      });
+    }
+    else {
+      res.status(400).send('Error uploading to Azure');
+    }
   });
 };

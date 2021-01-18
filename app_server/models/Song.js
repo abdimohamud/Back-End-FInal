@@ -2,44 +2,36 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 // Create Schema
-const UserSchema = new Schema({
+const SongSchema = new Schema({
   id: {
     type: String,
     required: true
   },
-  fullname: {
+  name: {
     type: String,
     required: true
   },
-  email: {
+  url: {
     type: String,
     required: true
   },
-  password: {
-    type: String,
-    required: true
-  },
-  signUpDate: {
-    type: Date,
-    default: Date.now
-  },
-  dob: {
-    type: Date
-  },
-  city: {
-    type: String
-  },
-  country: {
-    type: String
-  },
-  accountType: {
+  ownerID: {
     type: String,
     required: true
   },
   producerName: {
-    type: String
+    type: String,
+    required: true
+  },
+  uploadDate: {
+    type: Date,
+    default: Date.now
+  },
+  likeCount: {
+    type: String,
+    default: '0'
   }
 });
 
-const User = mongoose.model('User', UserSchema)
-module.exports = User;
+const Song = mongoose.model('Song', SongSchema)
+module.exports = Song;

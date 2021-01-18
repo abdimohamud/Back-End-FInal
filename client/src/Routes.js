@@ -5,7 +5,8 @@ import {
   Home,
   Listings,
   Login,
-  Register
+  Register,
+  Upload
 } from './layout';
 
 const Routes = () => {
@@ -14,6 +15,7 @@ const Routes = () => {
       <Route path="/listings/:category" component={Listings} />
       <Route exact path="/login" component={Login} />
       <Route exact path="/sign-up" component={Register} />
+      <Route exact path="/upload" component={Upload} />
       <Route exact path='/' component={Home}></Route>
     </Switch>
   );
