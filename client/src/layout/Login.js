@@ -38,7 +38,7 @@ const Login =() => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} style={{width:'50%', marginLeft:'auto', marginRight:'auto'}}>
             {errors.length > 0 &&
           errors.map((error, i) => (
             <AlertBanner
@@ -50,23 +50,27 @@ const Login =() => {
               }}
             />
           ))}
-      <div>
-        <label>Email:</label>
+      <div style={{display:'flex'}}>
+        <label style={{width:'100%'}}>Email:
         <input
           type="text"
+          style={{width:'100%'}}
           value={email}
           onChange={e => setEmail(e.target.value)}
         />
+        </label>
       </div>
-      <div>
-        <label>Password:</label>
+      <div style={{display:'flex'}}>
+        <label style={{width:'100%'}}>Password:
         <input
           type="text"
+          style={{width:'100%'}}
           value={password}
           onChange={e => setPassword(e.target.value)}
         />
+        </label>
       </div>
-      <input type="submit" value="Submit" />
+      <input type="submit" value="Submit" style={{width:'100%'}}/>
       <SocialProfileSignIn setErrors={setErrors} />
     </form>
   );

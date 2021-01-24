@@ -14,12 +14,12 @@ function App() {
   const { user } = useAuth();
   return (
       <div>
-        <Navbar />
+        <Navbar  />
         <Switch>
         <Route exact path="/">
-          {user ? <Redirect to="/home" /> : <Redirect to="/login" />}
+          {user ? <Home/> : <Redirect to="/login" />}
         </Route>
-          <ProtectedRoute path='/home'><Home/></ProtectedRoute>
+          
           <ProtectedRoute path="/listings/:category"><Listings/></ProtectedRoute>
           <Route path="/login"><Login/></Route>
           <Route path="/sign-up"><Register/></Route>

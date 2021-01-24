@@ -38,6 +38,12 @@ export function AuthContextProvider({ children }) {
     return handlePopupAuth(provider);
   }
 
+    // authenticate with Google
+    function loginWithTwitter() {
+      const provider = new firebase.auth.TwitterAuthProvider();
+      return handlePopupAuth(provider);
+    }
+
   // authenticate with popup
   function handlePopupAuth(provider) {
     return auth.signInWithPopup(provider);
@@ -74,16 +80,16 @@ export function AuthContextProvider({ children }) {
           setProfile(userProfile);
         } else {
           let newProfile = {};
-          newProfile.photoURL = user.photoURL;
+          newProfile.photoURL = user.photoURL ? user.photoURL:'';
           newProfile.fullName =
             user.displayName !== '' ? user.displayName : user.email;
           newProfile.accountType = '';
-          newProfile.signUpDate = user.signUpDate;
-          newProfile.dob= user.dob
-          newProfile.city = user.city
-          newProfile.country = user.country
-          newProfile.producerName= user.producerName
-          newProfile.email = user.email;
+          newProfile.signUpDate = user.signUpDate?user.signUpDate:'';
+          newProfile.dob= user.dob?user.dob:'';
+          newProfile.city = user.city?user.city:'';
+          newProfile.country = user.country?user.country:'';
+          newProfile.producerName= user.producerName?user.producerName:'';
+          newProfile.email = user.email?user.email:'';
           setProfile(newProfile);
           db.collection('Users').doc(user.uid).set(newProfile);
           database.ref(`Users/${user.uid}`).set(newProfile)
@@ -110,6 +116,7 @@ export function AuthContextProvider({ children }) {
     loginWithEmail,
     loginWithFacebook,
     loginWithGoogle,
+    loginWithTwitter,
     signout,
   };
   return (
