@@ -8,6 +8,7 @@ import Home from './layout/Home'
 import Listings from './layout/Listings'
 import Login from './layout/Login'
 import Register from './layout/Register'
+import Upload from './layout/Upload'
 import './App.css';
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
           <ProtectedRoute path="/listings/:category"><Listings/></ProtectedRoute>
           <Route path="/login"><Login/></Route>
           <Route path="/sign-up"><Register/></Route>
+          <Route path="/upload"><Upload/></Route>
         </Switch>
         <Footer />
       </div>

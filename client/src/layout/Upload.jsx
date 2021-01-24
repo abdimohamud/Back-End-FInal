@@ -1,16 +1,18 @@
 import React, { useState } from "react";
 import axios from 'axios';
+import { useAuth } from '../contexts/AuthContext';
 
 export default function Upload() {
   const [file, setFile] = useState();
   const [name, setName] = useState("");
+  const { user, signout } = useAuth();
 
   const onSubmit = (e) => {
     e.preventDefault();
     var uploadData = new FormData();
     uploadData.append('file', file);
     uploadData.append('name', name);
-    uploadData.append('id', '1');
+    uploadData.append('ownerID', user.uid);
 
     axios({
       method: 'post',

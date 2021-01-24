@@ -12,11 +12,10 @@ var storage = multer.diskStorage({
   }
 })
 
-//User Registration
-router.post('/register', userController.register);
-router.post('/login', userController.login);
-
 //User songs
+
+// Upload song. Form data needed
+// file, name, ownerID
 router.post('/uploadsong', multer({ storage: storage }).single('file'), userController.uploadSong);
 
 module.exports = router;

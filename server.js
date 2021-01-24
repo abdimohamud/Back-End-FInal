@@ -1,7 +1,6 @@
 const express = require("express");
-const mongoose = require("mongoose");
+const firebase = require("./app_server/config/firebase");
 const bodyParser = require("body-parser");
-const passport = require("passport");
 const usersRouter = require("./app_server/routes/users");
 const app = express();
 
@@ -13,26 +12,8 @@ app.use(
 );
 app.use(bodyParser.json());
 
-// DB Config
-const db = require("./app_server/config/keys").mongoURI;
-
-// Connect to MongoDB
-mongoose
-.connect(
-  db,
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  }
-)
-.then(() => console.log("MongoDB successfully connected"))
-.catch(err => console.log(err));
-
-// Passport middleware
-app.use(passport.initialize());
-
-// Passport config
-require("./app_server/config/passport")(passport);
+//Firebase
+firebase.initialize();
 
 // Routes
 app.use("/users", usersRouter);
