@@ -5,13 +5,13 @@ import 'firebase/storage';
 import 'firebase/database'
 
 const firebaseConfig = {
-    apiKey: "AIzaSyAI_vyZkQptn4so3eQjBZhllbVyKV5oaRA",
-    authDomain: "fyre-beats.firebaseapp.com",
-    projectId: "fyre-beats",
-    storageBucket: "fyre-beats.appspot.com",
-    messagingSenderId: "586863810068",
-    appId: "1:586863810068:web:319bc9982e913ec891b901",
-    measurementId: "G-19XK7Q78NE"
+    apiKey: process.env.REACT_APP_apiKey,
+    authDomain: process.env.REACT_APP_authDomain,
+    projectId: process.env.REACT_APP_projectId,
+    storageBucket: process.env.REACT_APP_storageBucket,
+    messagingSenderId: process.env.REACT_APP_messagingSenderId,
+    appId: process.env.REACT_APP_appId,
+    measurementId: process.env.REACT_APP_measurementId
 };
 
 const fbApp = firebase.initializeApp(firebaseConfig);

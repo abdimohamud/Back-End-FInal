@@ -4,6 +4,8 @@ import './index.css';
 import App from './App';
 import { AuthContextProvider } from './contexts/AuthContext';
 import { BrowserRouter } from 'react-router-dom';
+const dotenv = require('dotenv')
+dotenv.config()
 
 ReactDOM.render((
   <AuthContextProvider>
