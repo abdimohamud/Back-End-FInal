@@ -15,7 +15,7 @@ import star from '../assets/home/star-icon.svg';
 import { Listing } from '../components';
 import coverArt from '../assets/listing/coverart-1.png';
 
-export default function Home() {
+const Home =() => {
   const [tabs, setTabs] = useState(['active', 'inactive', 'inactive']);
 
   function setActive(index){
@@ -149,3 +149,4 @@ export default function Home() {
     </div>
   );
 }
+export default Home

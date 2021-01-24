@@ -1,26 +1,56 @@
 import React, { useState } from "react";
-
-export default function Register(props) {
+import { Link, useHistory } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
+import SocialProfileSignIn from '../utils/SocialProfileAuth'
+import AlertBanner from '../components/AlertBanner';
+const Register = (props) => {
+  const { registerWithEmail } = useAuth();
+  const history = useHistory();
+  const [errors, setErrors] = useState([]);
   const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
   const [accountType, setAccountType] = useState("");
 
-  const onSubmit = (e) => {
+  // const onSubmit = (e) => {
+  //   e.preventDefault();
+  //   const userData = {
+  //     fullname: fullname,
+  //     email: email,
+  //     password: password,
+  //     password2: password2,
+  //     accountType: accountType
+  //   };
+  //   console.log(userData);
+  // }
+
+  const onSubmit = async (e) => {
     e.preventDefault();
-    const userData = {
-      fullname: fullname,
-      email: email,
-      password: password,
-      password2: password2,
-      accountType: accountType
-    };
-    console.log(userData);
-  }
+    try {
+      await registerWithEmail(email, password);
+      history.push('/login');
+    } catch (err) {
+      setErrors([err]);
+    }
+  };
+
+
+
 
   return (
     <form onSubmit={onSubmit}>
+       {errors.length > 0 &&
+          errors.map((error, i) => (
+            <AlertBanner
+              key={i}
+              className="bg-red-300"
+              message={error.message}
+              close={() => {
+                setErrors(errors.filter((err) => err.code !== error.code));
+              }}
+            />
+          ))}
     <div>
       <label>Full name:</label>
       <input
@@ -71,7 +101,9 @@ export default function Register(props) {
         />
         <label>Buyer</label>
       </div>
+      <SocialProfileSignIn setErrors={setErrors} />
       <input type="submit" value="Submit" />
     </form>
   );
 }
+export default Register;
