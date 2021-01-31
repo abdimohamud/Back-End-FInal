@@ -5,25 +5,45 @@ import './styles/navbar.scss';
 import logo from '../assets/navbar/navbar-logo.png';
 import cart from '../assets/navbar/cart-icon.svg';
 import cartBlack from '../assets/navbar/cart-icon-black.svg';
+import { db } from '../firebase/firebase';
 
 const Navbar=() => {
   let history = useHistory();
   const { user, signout } = useAuth();
-  const[loggedIn, setLoggedIn] = useState(null)
-  const [cartAmount] = useState("1");
-  console.log(user)
- useEffect(()=>{
-  if (user){
-    setLoggedIn(!loggedIn)
+  const[loggedIn, setLoggedIn] = useState(null);
+  const [cartAmount, setCartAmount] = useState(null);
+
+  function getTotalAmount(snapshot){
+    var amount = 0;
+    snapshot.forEach(function(doc) {
+      amount = amount + doc.data().amount;
+    });
+    return amount;
   }
-},[ user])
-const handleSignOut = () => {
-  signout()
-  history.push('/login')
-  setLoggedIn(false)
-}
+
+  useEffect(() => {
+    if (user){
+      setLoggedIn(!loggedIn);
+
+      const cartRef = db.collection('Users').doc(user.uid).collection('cart')
+      return cartRef.onSnapshot(snapshot => {
+        console.log("Cart updated");
+        setCartAmount(getTotalAmount(snapshot));
+      })
+    }
+    else {
+      setCartAmount(0);
+    }
+  },[user]);
+
+  const handleSignOut = () => {
+    signout();
+    history.push('/login');
+    setLoggedIn(false);
+  }
+
   function cartAmountIcon(){
-    if(cartAmount !== ""){
+    if(cartAmount != null && cartAmount != ""){
       return (
         <div className="cart-amount">{cartAmount}</div>
       );
@@ -46,7 +66,7 @@ const handleSignOut = () => {
           {
             loggedIn?<li onClick={handleSignOut}>Logout</li>:<li><Link to="/login"><span>Login</span></Link></li>
           }
-          
+
           <li className="icon-container">
             {cartAmountIcon()}
             <Link to="/cart"><img alt="" src={cart === "black" ? cartBlack : cart} /></Link>

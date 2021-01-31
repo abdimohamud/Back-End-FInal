@@ -29,7 +29,7 @@ exports.uploadSong = function(req, res) {
           playCount: 0,
           commentCount: 0
         };
-        var result = await songs.add(songData);
+        var db_result = await songs.add(songData);
         res.status(200).send("Added song");
         fs.unlinkSync(req.file.path);
       }
